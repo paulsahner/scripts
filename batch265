@@ -1,0 +1,30 @@
+#! /bin/zsh
+
+# Batch convert files to HEVC/H.265 using handbrakeCLI. Audio that is AAC is passed through. Output will be in "recompressed" subdirectory of working directory.
+# Usage: Call script with three variables: 1. The extension of files you want to convert. 2. The extension of the output. 3. The directory of source files.
+# Script is set to quality of 28 by default. Lower this number to increase quality.
+#
+# Example command: $ batch265 mp4 mkv videos
+# This will find all files with the extension "mp4" in the subdirectory "videos" of the working directory and convert them to HEVC/H265 with the filetype MKV, placing the results in a "recompressed" subdirectory of the working directory.
+
+srcExt=$1
+destExt=$2
+srcDir=$3
+
+
+# Check for output directory and create if necessary
+if [ ! -d "recompressed" ]; then
+mkdir "recompressed"
+fi
+
+# Begin conversion
+for filename in $srcDir/*.$srcExt; do
+
+  basePath=${filename%.*}
+  baseName=${basePath##*/}
+
+  handbrakecli -i "$filename" -e x265 -f av_mkv -q 28 -E copy:aac -o "recompressed"/"$baseName"."$destExt"
+
+done
+
+echo "Conversion complete!"
