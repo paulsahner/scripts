@@ -29,7 +29,6 @@ srcDir=$3
 outDir=${4:-"recompressed"}
 qua=${5:-28}
 
-
 # Check for output directory and create if necessary
 if [ ! -d "$outDir" ]; then
 mkdir "$outDir"
@@ -45,4 +44,4 @@ handbrakecli -i "$filename" -e x265 -f av_mkv -q $qua -E copy:aac -o "$outDir"/"
 
 done
 
-echo "Conversion complete!"
+echo "Batch conversion of all $srcExt files in $srcDir to $outDir complete!"
