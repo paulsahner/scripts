@@ -5,29 +5,27 @@
 #
 # Usage: Call script with these arguments: 
 # 1. Extension of files you want to convert. (ex: mp4)
-# 2. Extension of the output. (mkv recommended)
-# 3. Directory of source files.(Files must be in subdirectory of working directory)
-# 4. (OPT) Output directory name. (Default is "recompressed".)
-# 5. (OPT) Quality setting (0-51. 0 is lossless. 51 is terrible. 28 by default)
+# 2. Directory of source files.(Files must be in subdirectory of working directory)
+# 3. (OPT) Output directory name. (Default is "recompressed".)
+# 4. (OPT) Quality setting (0-51. 0 is lossless. 51 is terrible. 28 by default)
 #
 # Example commands: 
-# $ batch265 mp4 mkv videos
+# $ batch265 mp4 videos
 #
 # This will find all files with the extension "mp4" in the subdirectory "videos" of the 
 # working directory and convert them to HEVC/H265 with quality 28 and the filetype MKV,
-# placing the results in a "recompressed" subdirectory of the working directory.
+# placing the results in a "recompressed" subdirectory of the "videos" directory.
 #
-# $ batch265 m4a mkv "Season 1" "Season 1 Compressed" 20
+# $ batch265 m4a "vacation" "archive" 20
 #
-# This will find all files with the extension "m4a" in the subdirectory "Season 1" of the
+# This will find all files with the extension "m4a" in the subdirectory "vacation" of the
 # working directory and convert them to HEVC/H265 with quality 20 and the filetype MKV,
-# placing the results in the "Season 1 Compressed" subdirectory of the working directory.
+# placing the results in the "archive" subdirectory of the "vacation" directory.
 
 srcExt=$1
-destExt=$2
-srcDir=$3
-outDir=${4:-"recompressed"}
-qua=${5:-28}
+srcDir=$2
+outDir=${3:-"recompressed"}
+qua=${4:-28}
 
 # Check for output directory and create if necessary
 if [ ! -d "$outDir" ]; then
@@ -40,7 +38,7 @@ for filename in $srcDir/*.$srcExt; do
 basePath=${filename%.*}
 baseName=${basePath##*/}
 
-handbrakecli -i "$filename" -e x265 -f av_mkv -q $qua -E copy:aac -o "$outDir"/"$baseName"."$destExt"
+handbrakecli -i "$filename" -e x265 -f av_mkv -q $qua -E copy:aac -o "$srcDir"/"$outDir"/"$baseName".mkv
 
 done
 
