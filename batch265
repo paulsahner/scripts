@@ -29,7 +29,7 @@ qua=${4:-28}
 
 # Check for output directory and create if necessary
 if [ ! -d "$outDir" ]; then
-mkdir "$outDir"
+mkdir "$srcDir"/"$outDir"
 fi
 
 # Begin conversion
