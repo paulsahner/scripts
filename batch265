@@ -42,4 +42,8 @@ handbrakecli -i "$filename" -e x265 -f av_mkv -q $qua -E copy:aac -o "$srcDir"/"
 
 done
 
-echo "Batch conversion of all $srcExt files in $srcDir to $outDir complete!"
+# Notify on completion via shell
+echo "Batch conversion of all $srcExt files in $srcDir complete!"
+
+# Notify on completion via macOS Notification
+terminal-notifier -title bash265 -message "Batch conversion of all $srcExt files in $srcDir complete!"
