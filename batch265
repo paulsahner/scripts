@@ -1,5 +1,8 @@
 #! /bin/zsh
 
+# Inspired by the tutorial and script from Nick Congleton at LinuxConfig.org
+# https://linuxconfig.org/how-to-use-ffmpeg-to-convert-multiple-media-files-at-once-on-linux
+
 # Batch convert files to HEVC/H.265 using handbrakeCLI (required) to MKV container.
 # Script assumes audio is AAC and passes it through unchanged.
 #
