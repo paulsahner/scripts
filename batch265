@@ -32,6 +32,11 @@ if [ ! -d "$outDir" ]; then
 mkdir "$srcDir"/"$outDir"
 fi
 
+# Count requested files
+fileCount="$(find "$srcDir"/*.$srcExt \( ! -regex '.*/\..*' \) -type f | wc -l | tr -d ' ')"
+
+echo "Beginning conversion of $fileCount file(s)."
+
 # Begin conversion
 for filename in $srcDir/*.$srcExt; do
 
@@ -42,8 +47,11 @@ handbrakecli -i "$filename" -e x265 -f av_mkv -q $qua -E copy:aac -o "$srcDir"/"
 
 done
 
-# Notify on completion via shell
-echo "Batch conversion of all $srcExt files in $srcDir complete!"
+# TBD: Notify on completion via IFTTT (Requires applet configured to receive webhooks)
+# curl -X POST https://maker.ifttt.com/trigger/conversion/with/key/$IFTTT_KEY
 
-# Notify on completion via macOS Notification
-terminal-notifier -title bash265 -message "Batch conversion of all $srcExt files in $srcDir complete!"
+# Notify on completion via shell
+echo "Batch conversion of $fileCount $srcExt files in $srcDir complete!"
+
+# Notify on completion via macOS Notification (Requires terminal-notifier)
+terminal-notifier -title bash265 -message "Batch conversion of $fileCount $srcExt files in $srcDir complete!"
