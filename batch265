@@ -27,7 +27,11 @@ for filename in $srcDir/*.$srcExt; do
 basePath=${filename%.*}
 baseName=${basePath##*/}
 
-handbrakecli -i "$filename" -e x265 -f av_mkv -q $qua -E copy:aac -o "$srcDir"/"$outDir"/"$baseName".mkv
+# Default command uses macOS Video Toolbox encoder
+handbrakecli -i "$filename" -e vt_h265 -f av_mkv -q $qua -E copy:aac -o "$srcDir"/"$outDir"/"$baseName".mkv
+
+# If using on machine without Video Toolkbox hardware, swap out the command on line 31 for this one on line 34.
+# handbrakecli -i "$filename" -e x265 -f av_mkv -q $qua -E copy:aac -o "$srcDir"/"$outDir"/"$baseName".mkv
 
 done
 

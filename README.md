@@ -4,7 +4,7 @@
 A simple shell script for converting a folder of videos to H.265/HEVC using handbrakeCLI.
 Inspired by the tutorial and script [from Nick Congleton at LinuxConfig.org](https://linuxconfig.org/how-to-use-ffmpeg-to-convert-multiple-media-files-at-once-on-linux)
 
-Script assumes audio is AAC and passes it through unchanged. Output is an MKV container.
+Script assumes audio is AAC and passes it through unchanged. Output is an MKV container. Default command uses macOS Video Toolbox for accelerated performance. Can be altered for devices without VT hardware.
 
 ### Usage
 Call script with these arguments: 
