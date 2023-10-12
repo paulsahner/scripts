@@ -1,0 +1,5 @@
+docker stop tautulli
+docker rm tautulli
+docker pull tautulli/tautulli
+docker run -d --name=tautulli --restart=unless-stopped -v $localpath:/config -e PUID=501 -e PGID=20 -e TZ=America/New_York -p 8181:8181 tautulli/tautulli:latest
+echo Tautulli Updated
